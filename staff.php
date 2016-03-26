@@ -3,6 +3,7 @@ define('PAGE', 'staff');
 include_once "header.html";
 include_once "config.php";
 include_once "menu.php";
+include_once "footer.html";
 
 ?>
 
@@ -26,9 +27,9 @@ if(!empty($_POST)){
     $firstName = trim(htmlspecialchars($_POST['first_name'])); //htmlspecialchars - экранировать специальные символы
     $lastName = trim(htmlspecialchars($_POST['last_name']));   //trim - обрезает пробелы в начале и конце строки
     $position = (int)$_POST['position'];
-    
 
-    
+
+
     mysqli_query($db, "
     INSERT INTO
         `staff`
@@ -37,7 +38,7 @@ if(!empty($_POST)){
         `first_name` = '$firstName',
         `position` = $position;
     ");
-    
+
     if (mysqli_errno($db) == 0){
         echo 'Новый сотрудник успешно добавлен!';
     }
