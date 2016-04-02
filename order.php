@@ -31,15 +31,15 @@ include_once "footer.html";
             echo $select;
         
         $query = mysqli_query($db, "
-        SELECT * FROM `company`
-        ORDER BY `name`;
+        SELECT * FROM `client`
+        ORDER BY `id_company`;
      ");
-     $select = "<div>Компания<select name = 'company'>
+     $select = "<div>Клиент<select name = 'client'>
      ";
         
         while ($company = mysqli_fetch_assoc($query)){
-                    $select.= "<option value = '{$company['id']}'>{$company['name']}</option>";
-                }
+        $select.= "<option value = '{$company['id']}'>{$company['last_name']}</option>";
+        }
 
             $select.="</select></div>";
 
@@ -58,8 +58,8 @@ include_once "footer.html";
 
 <?php
  if(!empty($_POST)){
-   $staff = (int)$_POST['staff_id'];
-   $client = (int)$_POST['client_id'];
+   $staff = (int)$_POST['staff'];
+   $client = (int)$_POST['client'];
    $sum= (float)$_POST['sum'];
    $status = (int)$_POST['status'];
 
