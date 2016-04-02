@@ -23,7 +23,7 @@
 
             $query = mysqli_query($db, "
             SELECT `id` FROM `user`
-            WHERE `login` = '$login';
+            WHERE `login` = '$login'
             AND `pass` = '$pass';
             ");
 
@@ -33,13 +33,12 @@
             header("Location: home.php");
         
         }
+        
         else{
            echo '<p>Неверная пара логин/пароль</p>';
             }
 
-            else {echo '<p>Ошибка авторизации!</p>';}
 
-        }
+            }
     
-}
 ?>
