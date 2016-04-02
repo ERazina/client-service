@@ -1,5 +1,6 @@
 <?php
 define('PAGE', 'order');
+define ('TITLE', 'Работа с клиентами');
 include_once "header.html";
 include_once "config.php";
 include_once "menu.php";
@@ -10,33 +11,73 @@ include_once "footer.html";
 <form method = "post">
     <fieldset>
         <legend>Добавить заказ</legend>
-        <div>ID сотрудника<span>*</span><input type = "text" name="staff_id" required></div>
-        <div>ID клиента<span>*</span><input type = "text" name="client_id" required></div>
-        <div>Сумма<span>*</span><input type = "text" name="sum" required></div>
-        <div>Статус<span>*</span><input type = "text" name="status" required></div>
+        
+        <?php
+
+     $query = mysqli_query($db, "
+        SELECT * FROM `staff`
+        ORDER BY `last_name`;
+     ");
+        
+     $select = "<div>Сотрудник<select name = 'staff'>
+     ";
+        
+        while ($staff = mysqli_fetch_assoc($query)){
+                    $select.= "<option value = '{$staff['id']}'>{$staff['last_name']}</option>";
+                }
+
+            $select.="</select></div>";
+
+            echo $select;
+        
+        $query = mysqli_query($db, "
+        SELECT * FROM `company`
+        ORDER BY `name`;
+     ");
+     $select = "<div>Компания<select name = 'company'>
+     ";
+        
+        while ($company = mysqli_fetch_assoc($query)){
+                    $select.= "<option value = '{$company['id']}'>{$company['name']}</option>";
+                }
+
+            $select.="</select></div>";
+
+            echo $select;
+        ?>
+        <div>Сумма<input type = "text" name="sum" required></div>
+        <div>Статус<span>*</span><select name="status">
+            <option value = "0">Предварительная заявка</option>
+            <option value = "1">Выполняется</option>
+            <option value = "2">Выполнена</option>
+            </select>
+        </div>
         <input type = "submit" value = "Записать">
     </fieldset>
 </form>
 
 <?php
  if(!empty($_POST)){
-   $staff_id = trim(htmlspecialchars($_POST['staff_id']));
-   $client_id = trim(htmlspecialchars($_POST['client_id']));
-   $sum= trim(htmlspecialchars($_POST['sum']));
-   $status = trim(htmlspecialchars($_POST['status']));
+   $staff = (int)$_POST['staff_id'];
+   $client = (int)$_POST['client_id'];
+   $sum= (float)$_POST['sum'];
+   $status = (int)$_POST['status'];
 
    mysqli_query($db, "
    INSERT INTO
        `order`
    SET
+        `id_staff` = '$staff',
+        `id_client` = '$client',
        `sum` = '$sum',
        `status` = '$status';
    ");
 
    if (mysqli_errno($db) == 0){
-       echo 'Новая компания успешно добавлена!';
+       echo '<p>Новый заказ успешно добавлен!</p>';
    }
-   echo mysqli_errno($db);
+     echo mysqli_errno($db);
+    echo mysqli_error($db);
  }
 
 ?>

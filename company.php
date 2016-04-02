@@ -17,17 +17,28 @@ include_once "footer.html";
 <?php
  if(!empty($_POST)){
    $name = trim(htmlspecialchars($_POST['company_name']));
+     $query = mysqli_query($db, "
+        SELECT `id` FROM `company`
+        WHERE `name` = '$name';
+     ");
+     
+     if(mysqli_errno($db) == 0){
+         echo '<p>Такая компания уже есть</p>';
+     }
+     
+     else{
+       mysqli_query($db, "
+       INSERT INTO
+           `company`
+       SET
+           `name` = '$name';
+       ");
 
-   mysqli_query($db, "
-   INSERT INTO
-       `company`
-   SET
-       `name` = '$name';
-   ");
+           if (mysqli_errno($db) == 0){
+               echo 'Новая компания успешно добавлена!';
+            }
 
-   if (mysqli_errno($db) == 0){
-       echo 'Новая компания успешно добавлена!';
-   }
- }
+        }   
+    }
 
 ?>

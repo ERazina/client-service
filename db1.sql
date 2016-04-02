@@ -28,7 +28,7 @@ SHOW TABLES;
 
 CREATE TABLE `client`(
     `id` TINYINT (3) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `id_company` TINYINT (3) unsigned DEFAULT NULL,
+    `id_company` TINYINT (3) UNSIGNED NOT NULL AUTO_INCREMENT,
     `last_name` VARCHAR(100) NOT NULL,
     `first_name` VARCHAR(100) NOT NULL,
     PRIMARY KEY (`id`),
@@ -38,19 +38,19 @@ CREATE TABLE `client`(
 );
 
 SHOW TABLES;
-CREATE TABLE `order`(
-    `id` TINYINT (3) UNSIGNED NOT NULL AUTO_INCREMENT, //UNSIGNED - только положительные числа от 0 до 255
-    `id_staff` TINYINT (3) UNSIGNED NOT NULL,          //тип данных должен быть такой же как у id staff
-    `id_client` TINYINT (3) UNSIGNED NOT NULL,
-    `sum` FLOAT(10,2),
-    `status` TINYINT(1) UNSIGNED NOT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `FK1` (`id_staff`),
-    INDEX `FK2` (`id_client`),
-    FOREIGN KEY(`id_staff`)
-    REFERENCES `staff`(`id`) ON DELETE RESTRICT,
-    FOREIGN KEY(`id_client`)
-    REFERENCES `client`(`id`) ON DELETE RESTRICT 
+
+
+CREATE TABLE `order` (
+	`id` TINYINT(3) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`id_staff` TINYINT(3) UNSIGNED NOT NULL,
+	`id_client` TINYINT(3) UNSIGNED NOT NULL,
+	`sum` FLOAT(10,2),
+	`status` TINYINT(1) UNSIGNED NOT NULL,
+	PRIMARY KEY(`id`),
+	INDEX `FK1`(`id_staff`),
+	INDEX `FK2`(`id_client`),
+	FOREIGN KEY(`id_staff`) REFERENCES `staff`(`id`) ON DELETE RESTRICT,
+	FOREIGN KEY(`id_client`) REFERENCES `client`(`id`) ON DELETE RESTRICT
 );
 
 SHOW TABLES;
