@@ -2,14 +2,10 @@
 
 <form method = "post">
     <fieldset>
-        <legend>Регистрация</legend>
+        <legend>Авторизация</legend>
         <div>Логин<input type = "text" name = "login" required></div>
         <div>Пароль<input type = "password" name = "pass" required></div>
-        <input type = "submit" value = "Записать">
-    </fieldset>
-        <fieldset>
-        <legend>Авторизация</legend>
-            <a href = "reg.php">Войти в систему</a>
+        <input type = "submit" value = "Войти в систему">
     </fieldset>
 </form>
 
@@ -35,10 +31,10 @@
         }
         
         else{
-           echo '<p>Неверная пара логин/пароль</p>';
-            }
+            echo '<p>Неверная пара логин/пароль</p>';
+        }
 
 
-            }
+    }
     
 ?>

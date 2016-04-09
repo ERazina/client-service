@@ -1,5 +1,4 @@
 <link rel = "stylesheet" href="css/main.css" />
-
 <form method = "post">
     <fieldset>
         <legend>Регистрация</legend>
