@@ -133,3 +133,32 @@ WHERE `id_category`
 GROUP BY `number`
 HAVING `sum`> 1000;
 
+//Транзакции:
+Transaction start;
+UPDATE `user` SET `name` = `Ivan`
+WHERE `id` = 5;
+UPDATE `user` SET `name` = `Igor`
+WHERE `id` = 6;
+Commit;
+
+//создаем таблицу баскет
+INSERT INTO `basket`
+    (`isbn`, `count`, `number`)
+    SELECT `isbn`,
+    IF(`count` IS NULL, 1, `count`),
+    `number`
+    FROM `order`;
+    
+//затираем дубли в таблице ордер    
+CREATE TEMPORARY TABLE `t_temp` AS(
+    SELECT MAX(`id`) AS `id`
+    FROM `order`
+    GROUP BY `number`
+);
+DELETE FROM `order` WHERE `id` NOT IN(
+    SELECT `id` FROM `t_temp`
+);
+
+
+
+
