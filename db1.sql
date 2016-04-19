@@ -1,6 +1,8 @@
 cd..//..//xampp/mysql/bin      //для винды
 mysql –u root –p
 
+Для Мак: /Applications/XAMPP/xamppfiles/bin/mysql
+
 CREATE DATABASE  `company`
 CHARACTER SET = 'utf8'
 COLLATE = 'utf8_general_ci';
